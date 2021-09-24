@@ -1,0 +1,10 @@
+C:\Users\ED777\source\repos\GAS station\GAS station\bin\Debug\GAS station.exe.config
+C:\Users\ED777\source\repos\GAS station\GAS station\bin\Debug\GAS station.exe
+C:\Users\ED777\source\repos\GAS station\GAS station\bin\Debug\GAS station.pdb
+C:\Users\ED777\source\repos\GAS station\GAS station\obj\Debug\GAS station.csprojAssemblyReference.cache
+C:\Users\ED777\source\repos\GAS station\GAS station\obj\Debug\GAS_station.Form1.resources
+C:\Users\ED777\source\repos\GAS station\GAS station\obj\Debug\GAS_station.Properties.Resources.resources
+C:\Users\ED777\source\repos\GAS station\GAS station\obj\Debug\GAS station.csproj.GenerateResource.cache
+C:\Users\ED777\source\repos\GAS station\GAS station\obj\Debug\GAS station.csproj.CoreCompileInputs.cache
+C:\Users\ED777\source\repos\GAS station\GAS station\obj\Debug\GAS station.exe
+C:\Users\ED777\source\repos\GAS station\GAS station\obj\Debug\GAS station.pdb
