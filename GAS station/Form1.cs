@@ -24,7 +24,7 @@ namespace GAS_station
 			timer1.Interval = 5000;
 			groupBox1.Text = "Gas";
 			label1.Text = "Gas type: ";
-			comboBox1.Items.AddRange(new string[] {"A-95","A-92","A-100", "Diesel |Euro+|", "Gas" });
+			comboBox1.Items.AddRange(new string[] {"A-95", "Diesel", "Gas" });
 			comboBox1.SelectedItem = "A-95";
 			label2.Text = "Price: ";
 			textBox1.Enabled = false;
@@ -61,31 +61,31 @@ namespace GAS_station
 			label10.Text = "Quantity";
 
 			textBox4.Enabled = false;
-			textBox4.Text = "34,00";
+			textBox4.Text = "34,50";
 			textBox5.Enabled = false;
 			textBox5.Text = "0";
 			textBox7.Enabled = false;
-			textBox7.Text = "45,00";
+			textBox7.Text = "39,00";
 			textBox6.Enabled = false;
 			textBox6.Text = "0";
 			textBox9.Enabled = false;
-			textBox9.Text = "22,00";
+			textBox9.Text = "19,99";
 			textBox8.Enabled = false;
 			textBox8.Text = "0";
 			textBox11.Enabled = false;
-			textBox11.Text = "15,00";
+			textBox11.Text = "19,00";
 			textBox10.Enabled = false;
 			textBox10.Text = "0";
 			textBox13.Enabled = false;
-			textBox13.Text = "15,00";
+			textBox13.Text = "19,00";
 			textBox12.Enabled = false;
 			textBox12.Text = "0";
 			textBox15.Enabled = false;
-			textBox15.Text = "14,00";
+			textBox15.Text = "16,00";
 			textBox14.Enabled = false;
 			textBox14.Text = "0";
 			textBox17.Enabled = false;
-			textBox17.Text = "10,00";
+			textBox17.Text = "10,50";
 			textBox16.Enabled = false;
 			textBox16.Text = "0";
 
@@ -105,77 +105,56 @@ namespace GAS_station
 			string HtmlText = string.Empty;
 			try
 			{
-				HttpWebRequest myHttwebrequest = (HttpWebRequest)HttpWebRequest.Create("https://upg.ua/cini-na-palne/");
+				HttpWebRequest myHttwebrequest = (HttpWebRequest)HttpWebRequest.Create("https://index.minfin.com.ua/ua/markets/fuel/");
 				HttpWebResponse myHttpWebresponse = (HttpWebResponse)myHttwebrequest.GetResponse();
 				StreamReader strm = new StreamReader(myHttpWebresponse.GetResponseStream());
 				HtmlText = strm.ReadToEnd();
 				//Console.Clear();
-				Regex r95 = new Regex(@"\W+\w+\W+6,\W\w+\W+\w+\s\W+\w+\W+\d+\.\d+\W+\w+\W+\d\W+\w+\W+A\-95\W+");
-				Regex price95 = new Regex(@"\d+\.\d+");
-				Regex r92 = new Regex(@"\W+\w+\W+6,\W\w+\W+\w+\s\W+\w+\W+\d+\.\d+\W+\w+\W+\d\W+\w+\W+A\-92\W+");
-				Regex price92 = new Regex(@"\d+\.\d+");
-				Regex rDPEuro = new Regex(@"\W+\w+\W+6,\W\w+\W+\w+\s\W+\w+\W+\d+\.\d+\W+\w+\W+\d\W+\w+\W+Euro\sdiesel\W+");
-				Regex priceDPEuro = new Regex(@"\d+\.\d+");
-				Regex rGas = new Regex(@"\W+\w+\W+6,\W\w+\W+\w+\s\W+\w+\W+\d+\.\d+\W+\w+\W+\d\W+\w+\W+Газ\W+");
-				Regex priceGas = new Regex(@"\d+\.\d+");
-				Regex r100 = new Regex(@"\W+\w+\W+6,\W\w+\W+\w+\s\W+\w+\W+\d+\.\d+\W+\w+\W+\d\W+\w+\W+upg\s100\W+");
-				Regex price100 = new Regex(@"\d+\.\d+");
-				Match m; Match mm;
+
+
 				if (comboBox1.SelectedItem.ToString() == "A-95")
 				{
+					Regex price95 = new Regex(@"\d+\,\d+");
+					Regex r95 = new Regex(@"А-95\D+\d+\,\d+");
+					Match m; Match mm;
 					m = r95.Match(HtmlText);
 					if (m.Success)
 					{
 						string mtemp = m.Value;
 						mm = price95.Match(mtemp);
-						string finalvalue=mm.Value.Replace(".", ",");
-						textBox1.Text = finalvalue;
-					}
-				}
-				if (comboBox1.SelectedItem.ToString() == "A-92")
-				{
-					m = r92.Match(HtmlText);
-					if (m.Success)
-					{
-						string mtemp = m.Value;
-						mm = price92.Match(mtemp);
 						string finalvalue = mm.Value.Replace(".", ",");
 						textBox1.Text = finalvalue;
 					}
 				}
-				if (comboBox1.SelectedItem.ToString() == "A-100")
+
+				else if (comboBox1.SelectedItem.ToString() == "Diesel")
 				{
-					m = r100.Match(HtmlText);
+					Regex price95 = new Regex(@"\d+\,\d+");
+					Regex r95 = new Regex(@"Дизельне\D+\d+\,\d+");
+					Match m; Match mm;
+					m = r95.Match(HtmlText);
 					if (m.Success)
 					{
 						string mtemp = m.Value;
-						mm = price100.Match(mtemp);
+						mm = price95.Match(mtemp);
 						string finalvalue = mm.Value.Replace(".", ",");
 						textBox1.Text = finalvalue;
 					}
 				}
-				if (comboBox1.SelectedItem.ToString() == "Diesel |Euro+|")
+				else if (comboBox1.SelectedItem.ToString() == "Gas")
 				{
-					m = rDPEuro.Match(HtmlText);
+					Regex price95 = new Regex(@"\d+\,\d+");
+					Regex r95 = new Regex(@"Газ\D+\d+\,\d+");
+					Match m; Match mm;
+					m = r95.Match(HtmlText);
 					if (m.Success)
 					{
 						string mtemp = m.Value;
-						mm = priceDPEuro.Match(mtemp);
+						mm = price95.Match(mtemp);
 						string finalvalue = mm.Value.Replace(".", ",");
 						textBox1.Text = finalvalue;
 					}
 				}
-				if (comboBox1.SelectedItem.ToString() == "Gas")
-				{
-					m = rGas.Match(HtmlText);
-					if (m.Success)
-					{
-						string mtemp = m.Value;
-						mm = priceGas.Match(mtemp);
-						string finalvalue = mm.Value.Replace(".", ",");
-						textBox1.Text = finalvalue;
-					}
-				}			
 
 
 			}
@@ -204,8 +183,9 @@ namespace GAS_station
 				((TextBox)sender).Text = "0";
 			}
 			string s = textBox1.Text;
-
-			double a = Convert.ToDouble(s);
+			double a=0;
+			if(s!="")
+			 a = Convert.ToDouble(s);
 			string ss = textBox2.Text;
 
 			float aa = float.Parse(ss);
@@ -221,8 +201,9 @@ namespace GAS_station
 				((TextBox)sender).Text = "0";
 			}
 			string s = textBox1.Text;
-
-			double a = Convert.ToDouble(s);
+			double a = 0;
+			if (s != "")
+				a = Convert.ToDouble(s);
 			textBox2.Text = Convert.ToString(Convert.ToDouble(textBox3.Text) / a);
 			gassum = Convert.ToDouble(textBox3.Text);
 			label6.Text = textBox3.Text;
@@ -477,7 +458,7 @@ namespace GAS_station
 			
 			timer1.Start();
 			
-			d = MessageBox.Show( "Counting...","Messege", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+			d = MessageBox.Show( "Counting...","Message", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
 			
 			if (d == DialogResult.Cancel)
 			{
